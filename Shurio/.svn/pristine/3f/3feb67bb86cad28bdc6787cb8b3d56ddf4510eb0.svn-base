@@ -1,0 +1,51 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CrowScript : MonoBehaviour {
+	public string shurio_name;
+	private GameObject shurio;
+	public float power = 10.0f;
+	public float resistance = 5.0f;
+	private bool rotateFlg = false;
+	// Use this for initialization
+	void Start () {
+		if (shurio == null) {
+			shurio = GameObject.Find(shurio_name);
+		}
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (shurio != null) {
+			Vector2 direction = new Vector2(shurio.transform.position.x - this.transform.position.x, shurio.transform.position.y - this.transform.position.y); 
+			if (direction.x > 0) {
+				if (rotateFlg) {
+					this.transform.Rotate(new Vector3(0, 180, 0));
+					rotateFlg = false;
+				}
+			} else {
+				if (!rotateFlg) {
+					this.transform.Rotate(new Vector3(0, 180, 0));
+					rotateFlg = true;
+				}
+			}
+
+			Vector2 minus_direction = new Vector2(direction.x, direction.y / 3);
+			this.GetComponent<Rigidbody2D>().AddRelativeForce(direction.normalized * power - minus_direction.normalized * resistance);
+		}
+	}
+
+	public void OnTriggerEnter2D(Collider2D collider) {
+		if (collider.tag == "Player") {
+			Vector3 posi = this.transform.position;
+			Vector3 player = collider.transform.position;
+			Vector3 direction = posi - player;
+			Debug.Log(direction.y);
+			if (direction.y < 0) {
+				this.GetComponent<Rigidbody2D>().gravityScale = 10;
+				Destroy(this.gameObject, 5);
+			}
+		}
+	}
+}

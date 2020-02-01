@@ -1,0 +1,34 @@
+﻿#pragma strict
+
+import UnityEngine.SceneManagement;
+
+public var stage:String;
+public var shurio:String;
+
+function Start () {
+
+}
+
+function Update () {
+
+}
+
+function OnTriggerEnter2D(collider:Collider2D) {
+	if (collider.tag == "Player") {
+		collider.gameObject.transform.position.y = 10;
+		var posi:Vector2 = this.gameObject.transform.position;
+		var shurio_posi:Vector2 = collider.gameObject.transform.position;
+		if (shurio_posi.x - posi.x > 0) {
+			collider.gameObject.SendMessage("InitRotate", true);
+		} else {
+			collider.gameObject.SendMessage("InitRotate", false);
+		}
+		for (var i:int = 0;i < SceneManager.sceneCount; i++) {
+			var activeScene:Scene = SceneManager.GetSceneAt(i);
+			if (activeScene.name != shurio) {
+				SceneManager.UnloadSceneAsync(activeScene.name);
+			}
+		}
+		SceneManager.LoadScene(stage, LoadSceneMode.Additive);
+	}
+}

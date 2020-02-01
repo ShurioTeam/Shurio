@@ -1,0 +1,169 @@
+﻿#pragma strict
+
+public var jumpPower:int = 10;
+public var power:int = 10;
+public var throwPower:float = 1.0f;
+public var throwMass:float = 10.0f;
+public var face:GameObject;
+public var attack:int = 1000;
+private var jumping:boolean = false;
+private var anime:Animator;
+private var anime_kame:Animator;
+private var rotateFlg:boolean = false;
+private var timer:float;
+public var nTimer:int = 5;
+private var face_mass = 1.0;
+public var chest:GameObject;
+public var kame:GameObject;
+private static var hand_flag:boolean = false;
+private static var hand_chest:GameObject;
+private static var hand_kame:GameObject;
+private var inkora:boolean = false;
+public var walk_divide:float = 100.0f;
+public var exec_time:float = 10.0f;
+private var stay_time:float = 0.0f;
+function Start () {
+
+}
+
+function Update () {
+
+}
+
+function OnTriggerEnter2D(collider:Collider2D) {
+	if (collider.tag == "Fire") {
+		anime.SetBool("Hit",true);
+		timer = 0.0f;
+		var fire:Vector3 = collider.transform.position;
+		var posi:Vector3 = face.transform.position;
+		face.GetComponent.<Rigidbody2D>().AddForce((posi - fire)*attack);
+	}
+}
+
+function OnTriggerStay2D(collider:Collider2D) {
+	stay_time += Time.deltaTime;
+	if (exec_time < stay_time) {
+		stay_time = 0.0f;
+		return;
+	}
+	if (collider.tag == "Chest") {
+		if (Input.GetAxis("Enter") > 0) {
+			if (!hand_flag || hand_kame == null && hand_chest != null && hand_chest === collider.gameObject) {
+				hand_flag = true;
+				hand_chest = collider.gameObject;
+				hand_kame = null;
+				if (face.GetComponent.<Rigidbody2D>().mass <= face_mass) {
+					face.GetComponent.<Rigidbody2D>().mass += collider.gameObject.GetComponent.<Rigidbody2D>().mass;
+					collider.gameObject.GetComponent.<Rigidbody2D>().mass = 0;
+				}
+				var vchest:Vector3 = collider.gameObject.transform.position;
+				var posi:Vector3 = face.transform.position;
+
+				if (vchest.x >= posi.x) {
+					collider.gameObject.transform.position = posi + Vector3(0.2,0,0);
+				} else if (vchest.x < posi.x) {
+					collider.gameObject.transform.position = posi + Vector3(-0.2,0,0);
+				}
+			} else {
+				hand_flag = false;
+				hand_chest = null;
+			}
+		} else {
+			hand_flag = false;
+			hand_chest = null;
+			if (face.GetComponent.<Rigidbody2D>().mass - face_mass > 0) {
+				collider.gameObject.GetComponent.<Rigidbody2D>().mass = face.GetComponent.<Rigidbody2D>().mass - face_mass;
+				face.GetComponent.<Rigidbody2D>().mass = face_mass;
+			}
+		}
+
+		if (hand_flag) {
+			anime.SetBool("Hand",true);
+		} else {
+			anime.SetBool("Hand",false);
+		}
+
+	} else if (collider.tag == "Kame") {
+		var tkame:GameObject = collider.gameObject;
+		if (Input.GetAxis("Enter") > 0) {
+
+			if (anime_kame == null) {
+				anime_kame = tkame.GetComponentInChildren(Animator);
+			}
+
+			inkora = anime_kame.GetBool("InKora");
+
+			if (inkora && (!hand_flag || hand_chest == null && hand_kame != null && hand_kame === tkame)) {
+				hand_flag = true;
+				hand_chest = null;
+				hand_kame = tkame;
+				if (face.GetComponent.<Rigidbody2D>().mass <= face_mass) {
+					face.GetComponent.<Rigidbody2D>().mass += tkame.GetComponent.<Rigidbody2D>().mass;
+					tkame.GetComponent.<Rigidbody2D>().mass = 0;
+				}
+				var vkame:Vector3 = tkame.transform.position;
+				var posi2:Vector3 = face.transform.position;
+
+				//var box_collider = tkame.GetComponentInChildren(BoxCollider2D);
+				// box_collider.density = 0;
+
+				if (vkame.x >= posi2.x) {		// 亀が右にいる
+					if (rotateFlg) {
+						tkame.transform.position = posi2 + Vector3(-0.4, 0, 0);
+					} else {
+						tkame.transform.position = posi2 + Vector3(0.4, 0, 0);
+					}
+				} else if (vkame.x < posi2.x) { // 亀が左にいる
+					if (rotateFlg) {
+						tkame.transform.position = posi2 + Vector3(-0.4, 0, 0);
+					} else {
+						tkame.transform.position = posi2 + Vector3(0.4, 0, 0);
+					}
+				}
+
+				if (Input.GetAxis("Jump") > 0) {
+					var direct = 1;
+					if (rotateFlg) {
+						direct  = -1;
+					}
+					tkame.GetComponent.<Rigidbody2D>().mass = (face.GetComponent.<Rigidbody2D>().mass - face_mass) * throwMass;
+					tkame.GetComponent.<Rigidbody2D>().AddForce(Vector2( 1, 0)*throwPower*direct);
+					tkame.SendMessage("NowThrowing");
+				}
+			} else {
+				hand_flag = false;
+				hand_kame = null;
+			}
+		} else {
+			hand_flag = false;
+			hand_kame = null;
+			anime_kame = null;
+			if (face.GetComponent.<Rigidbody2D>().mass - face_mass > 0) {
+				tkame.GetComponent.<Rigidbody2D>().mass = face.GetComponent.<Rigidbody2D>().mass - face_mass;
+				face.GetComponent.<Rigidbody2D>().mass = face_mass;
+			}
+		}
+		if (hand_flag) {
+			anime.SetBool("Hand",true);
+		} else {
+			anime.SetBool("Hand",false);
+		}
+
+	}
+
+
+
+}
+
+function OnTriggerExit2D(collider:Collider2D) {
+	if (collider.tag == "Chest" || collider.tag == "Kame") {
+		hand_flag = false;
+		hand_chest = null;
+		anime_kame = null;
+		if (face.GetComponent.<Rigidbody2D>().mass - face_mass > 0) {
+			collider.gameObject.GetComponent.<Rigidbody2D>().mass = face.GetComponent.<Rigidbody2D>().mass - face_mass;
+			face.GetComponent.<Rigidbody2D>().mass = face_mass;
+		}
+		anime.SetBool("Hand",false);
+	}
+}

@@ -1,0 +1,39 @@
+﻿#pragma strict
+
+public var flagCount:int = 3;
+private var getFlag:int = 0;
+private var score:int = 0;
+private final var LOAD_LEVEL_STAGE1 = 1;
+
+function Start () {
+
+}
+
+function Update () {
+
+}
+
+function OnTriggerEnter2D(collider:Collider2D) {
+	if (collider.tag == "Player") {
+		Application.LoadLevel("End");
+	}
+
+	if (collider.tag == "Flag") {
+		getFlag++;
+		score++;
+		var camera:GameObject = GameObject.Find("Light");
+		camera.SendMessage("GetPoint", score);
+		var flag = GameObject.FindWithTag("Flag");
+		flag.GetComponent.<AudioSource>().Play();
+	}
+
+	if (flagCount <= getFlag) {
+		if (Application.loadedLevel == LOAD_LEVEL_STAGE1) {
+			Application.LoadLevel("Stage2");
+		} else {
+			Application.LoadLevel("Win");
+		}
+	}
+
+	Destroy(collider.gameObject);
+}

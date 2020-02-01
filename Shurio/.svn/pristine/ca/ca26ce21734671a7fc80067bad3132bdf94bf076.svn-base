@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\face.js">
+    <Files>
+      <File FileName="Assets\face.js" Line="127" Column="1" />
+      <File FileName="Assets\CameraSwitch.cs" Line="1" Column="1" />
+      <File FileName="Assets\ChestInstantiate.js" Line="1" Column="1" />
+      <File FileName="Assets\ChestScript.js" Line="1" Column="1" />
+      <File FileName="Assets\KameInstantiate.js" Line="1" Column="1" />
+      <File FileName="Assets\FireScript.js" Line="1" Column="1" />
+      <File FileName="Assets\FirebirdScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\CrowScript.cs" Line="34" Column="70" />
+      <File FileName="Assets\GameOver.js" Line="1" Column="1" />
+      <File FileName="Assets\FlagScript.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
