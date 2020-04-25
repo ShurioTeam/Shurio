@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 public class StartButton : MonoBehaviour
 {
 	public string stage;
+	public string shurioScene;
 	public string shurioName;
+	public string aorioName;
 	public float posiX = 5.0f;
 	public float posiY = 10.0f;
 	public bool needKeyBox = false;
@@ -37,7 +39,7 @@ public class StartButton : MonoBehaviour
 			for (int i = 0; i < SceneManager.sceneCount; i++) {
 				Scene activeScene = SceneManager.GetSceneAt (i);
 				Debug.Log (activeScene.name);
-				if (activeScene.name != shurioName) {
+				if (activeScene.name != shurioScene) {
 					SceneManager.UnloadSceneAsync (activeScene.name);
 				}
 			}
@@ -47,6 +49,12 @@ public class StartButton : MonoBehaviour
 
 	void ShurioRotate(Collider2D collider) {
 		collider.gameObject.transform.position = new Vector2 (posiX, posiY);
+		if (collider.name == shurioName) {
+			GameObject.Find(aorioName).transform.position = new Vector2(posiX,posiY);
+		}
+		if (collider.name == aorioName) {
+			GameObject.Find(shurioName).transform.position = new Vector2(posiX,posiY);
+		}
 	}
 
 	public void SetHasKeyBox(bool hasKeyBox) {

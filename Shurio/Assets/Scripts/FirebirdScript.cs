@@ -9,6 +9,7 @@ public class FirebirdScript : MonoBehaviour {
 	public float bulletPower = 25.0f;
 	public float bulletInterval = 2.0f;
 	public float bulletLive = 10.0f;
+	public int HP = 40;
 	private float time = 0.0f;
 	private bool lightningFlg = false;
 	private bool greenLightFlg = false;
@@ -45,6 +46,13 @@ public class FirebirdScript : MonoBehaviour {
 				this.gameObject.transform.localScale = new Vector3(myscale.x * 1.05f, myscale.y * 1.05f, myscale.z * 1.05f);
 			}
 		}
+
+        Debug.Log("HP:" + HP);
+        if (HP < 0) {
+            this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, 100, 0));
+            Destroy(this.gameObject, 3.0f);
+        }
+
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
@@ -53,5 +61,12 @@ public class FirebirdScript : MonoBehaviour {
 		} else if (collider.tag == "item_greenLight") {
 			greenLightFlg = true;
 		}
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "item_fire" || collision.gameObject.tag == "item_greenLight" || collision.gameObject.tag == "item_lightning") {
+            HP--;
+            this.gameObject.GetComponent<Rigidbody2D>().AddForce((this.gameObject.transform.position - collision.transform.position) * 5.0f);
+        }
 	}
 }

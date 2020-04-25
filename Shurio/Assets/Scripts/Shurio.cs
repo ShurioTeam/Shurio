@@ -34,6 +34,7 @@ public class Shurio : MonoBehaviour
 	public GameObject chest030;
 	public GameObject chest050;
 	public GameObject chest100;
+	public GameObject bom;
 	private float chest_002g = 0.0f;
 	private float chest_007g = 0.0f;
 	private float chest_010g = 0.0f;
@@ -48,6 +49,7 @@ public class Shurio : MonoBehaviour
 	private bool fireEnabled = false;
 	private bool lightEnabled = false;
 	private bool greenEnabled = false;
+	private bool bomEnabled = false;
 	private Quaternion muki;
 	private float InputX = 0;
 	private float InputY = 0;
@@ -75,6 +77,9 @@ public class Shurio : MonoBehaviour
 		Debug.Log("A:" + Input.GetAxis("Enter"));
 		Debug.Log("B:" + Input.GetAxis("Fire1"));
 		Debug.Log("RB:" + Input.GetAxis("Fire2"));
+		Debug.Log("LB:" + Input.GetAxis("Fire4"));
+		Debug.Log("RT_Joy1:" + Input.GetAxis("RT_Joy1"));
+		Debug.Log("LT_Joy2:" + Input.GetAxis("LT_Joy1"));
 		if (!setGlam) {
 			if (chest002 != null && chest_002g == 0.0f) chest_002g = chest002.GetComponent<Rigidbody2D>().mass;
 			if (chest007 != null && chest_007g == 0.0f) chest_007g = chest007.GetComponent<Rigidbody2D>().mass;
@@ -86,9 +91,6 @@ public class Shurio : MonoBehaviour
 			setGlam = true;
 		}
 
-		if (Input.GetAxis("Fire2") > 0) {
-			Debug.Log("Fire2 Push");
-		}
 		if (isWater && !isGrounded) {
 			return ;
 		}
@@ -214,6 +216,7 @@ public class Shurio : MonoBehaviour
 			touchFlag = touch.phase == TouchPhase.Began;
 		}
 		if (Input.GetAxis("Enter") > 0 || touchFlag) {
+			Debug.Log("FireEnabled:" + fireEnabled);
 			if (fireflow != null && fireEnabled) {
 				if (fire_time > 0.5f) {
 					fire_time = 0.0f;
@@ -227,7 +230,7 @@ public class Shurio : MonoBehaviour
 						_fireflow.GetComponent<Rigidbody2D>().AddForce(new Vector2(1000, 0));
 					}
 
-					Destroy(_fireflow, 5.0f);
+					// Destroy(_fireflow, 5.0f);
 				}
 			} else if (lightflow != null && lightEnabled) {
 				if (fire_time > 0.2f) {
@@ -267,6 +270,15 @@ public class Shurio : MonoBehaviour
 
 					Destroy(_greenflow, 10.0f);
 				}
+			} else if (bom != null && bomEnabled) {
+				if (fire_time > 5.0f) {
+					fire_time = 0.0f;
+					Vector3 margin = new Vector3(1.5f, 0, 0);
+					if (rotateFlg) {
+						margin *= -1;
+					}
+					GameObject _bom = GameObject.Instantiate(bom, this.transform.position + margin, Quaternion.identity);
+				}
 			}
 		}
 	}
@@ -291,6 +303,7 @@ public class Shurio : MonoBehaviour
 			if (attacking > 0.0f) {
 				// シュリオが攻撃していた場合
 				face.GetComponent<AudioSource>().Play();
+				collider.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, attack, 0));
 				collider.GetComponent<Rigidbody2D>().AddForce((fire - posi)*attack);
 			} else {
 				if (collider.tag == "Fire" || direction.y >= 0) {
@@ -303,6 +316,8 @@ public class Shurio : MonoBehaviour
 					face.GetComponent<Rigidbody2D>().AddForce((posi - fire)*attack);
 				}
 			}
+		} else if (collider.tag == "item_bom") {
+			collider.SendMessage("InvokeSwitchOn");
 		} else if (collider.tag == "item_frog") {
 			bool isfrog = anime.GetBool("Frog");
 			if (!isfrog) {
@@ -316,16 +331,20 @@ public class Shurio : MonoBehaviour
 			fireEnabled = true;
 			lightEnabled = false;
 			greenEnabled = false;
+			bomEnabled = false;
 			Destroy(collider.gameObject, 1);
+			Debug.Log("SetFireEnabled:" + fireEnabled);
 		} else if (collider.tag == "item_lightning") {
 			fireEnabled = false;
 			lightEnabled = true;
 			greenEnabled = false;
+			bomEnabled = false;
 			Destroy(collider.gameObject, 1);
 		} else if (collider.tag == "item_greenLight") {
 			fireEnabled = false;
 			lightEnabled = false;
 			greenEnabled = true;
+			bomEnabled = false;
 			Destroy(collider.gameObject, 1);
 		} else if (collider.tag == "key") {
 			hasKey = true;
@@ -335,6 +354,13 @@ public class Shurio : MonoBehaviour
 			Destroy(collider.gameObject, 2);
 			GameObject door = GameObject.Find("NextStageDoor");
 			door.SendMessage("SetHasKeyBox", hasKeyBox);
+		} else if (collider.tag == "bom") {
+			Debug.Log("BOM:" + bomEnabled);
+			bomEnabled = true;
+			fireEnabled = false;
+			lightEnabled = false;
+			greenEnabled = false;
+			Destroy(collider.gameObject, 1);
 		}
 
 	}
@@ -343,7 +369,7 @@ public class Shurio : MonoBehaviour
 		if (collider.tag.Length > 5 && collider.tag.Substring(0,5) == "Chest") {
 			GameObject tchest = collider.gameObject;
 			if (Input.GetAxis("Fire3") > 0) {
-				if (!hand_flag || hand_kame == null && hand_chest != null && hand_chest == tchest) {
+				if (!hand_flag || (hand_kame == null && hand_chest != null && hand_chest == tchest)) {
 					hand_flag = true;
 					hand_chest = tchest;
 					hand_kame = null;
@@ -380,7 +406,7 @@ public class Shurio : MonoBehaviour
 					}
 					if (face.GetComponent<Rigidbody2D>().mass <= GROUND_MASS) {
 						face.GetComponent<Rigidbody2D>().mass += mass;
-						tchest.GetComponent<Rigidbody2D>().mass = 0;
+						tchest.GetComponent<Rigidbody2D>().mass = 0.05f;
 					}
 					Vector3 vchest = tchest.transform.position;
 					Vector3 posi = face.transform.position;
@@ -405,11 +431,6 @@ public class Shurio : MonoBehaviour
 						hand_flag = false;
 						hand_chest = null;
 					}
-				} else {
-					hand_flag = false;
-					hand_chest = null;
-					tchest.SendMessage("SetMass");
-					face.GetComponent<Rigidbody2D>().mass = GROUND_MASS;
 				}
 			} else {
 				hand_flag = false;
@@ -424,7 +445,7 @@ public class Shurio : MonoBehaviour
 				anime.SetBool("Hand",false);
 			}
 
-		} else if (collider.tag == "Kame") {
+		} else if (collider.tag == "Kame" || collider.tag == "item_bom") {
 			GameObject tkame = collider.gameObject;
 			if (Input.GetAxis("Fire3") > 0) {
 
@@ -494,12 +515,6 @@ public class Shurio : MonoBehaviour
 			} else {
 				anime.SetBool("Hand",false);
 			}
-
-		} else {
-			//		hand_flag = false;
-			//		hand_chest = null;
-			//		anime_kame = null;
-			//		anime.SetBool("Hand",false);
 		}
 	}
 

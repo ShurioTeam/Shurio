@@ -96,7 +96,10 @@
      <Compile Include="Assets\Asset Store\UnderwaterFantasy\Scripts\Done_BGScroller.cs" />
      <Compile Include="Assets\Asset Store\UnderwaterFantasy\Scripts\Perspective2DSortMode.cs" />
      <Compile Include="Assets\Fonts\Script\scriptTexttest.cs" />
-     <Compile Include="Assets\KillerInstantiate.cs" />
+     <Compile Include="Assets\Scripts\Aorio.cs" />
+     <Compile Include="Assets\Scripts\BoardScript.cs" />
+     <Compile Include="Assets\Scripts\BomHeiInstantiate.cs" />
+     <Compile Include="Assets\Scripts\BomHeiScript.cs" />
      <Compile Include="Assets\Scripts\CameraScript.cs" />
      <Compile Include="Assets\Scripts\CameraSwitch.cs" />
      <Compile Include="Assets\Scripts\ChestInstantiate.cs" />
@@ -111,6 +114,7 @@
      <Compile Include="Assets\Scripts\KameInstantiate.cs" />
      <Compile Include="Assets\Scripts\KameScript.cs" />
      <Compile Include="Assets\Scripts\KeyBoxInstantiate.cs" />
+     <Compile Include="Assets\Scripts\KillerInstantiate.cs" />
      <Compile Include="Assets\Scripts\KillerScript.cs" />
      <Compile Include="Assets\Scripts\Kinoko.cs" />
      <Compile Include="Assets\Scripts\Kuribo.cs" />
@@ -119,6 +123,7 @@
      <Compile Include="Assets\Scripts\NextStageScript.cs" />
      <Compile Include="Assets\Scripts\Question.cs" />
      <Compile Include="Assets\Scripts\QuitButtonScript.cs" />
+     <Compile Include="Assets\Scripts\RedKingScript.cs" />
      <Compile Include="Assets\Scripts\RengaScript.cs" />
      <Compile Include="Assets\Scripts\RengaScriptVertical.cs" />
      <Compile Include="Assets\Scripts\RetryButtonScript.cs" />

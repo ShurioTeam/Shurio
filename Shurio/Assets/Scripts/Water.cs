@@ -7,6 +7,7 @@ public class Water : MonoBehaviour {
 	public float xpower;
 	public float ypower;
 	public float jumpPower;
+	public float swimJump;
 	public float floatingPower;
 	public GameObject waterflow;
 	private Animator anime;
@@ -56,7 +57,7 @@ public class Water : MonoBehaviour {
 			}
 		}
 
-		if (!isGrounded && (inputY != 0 || inputX != 0))	 {
+		if (!isGrounded)	 {
 			anime.SetBool("Swim", true);
 		} else {
 			anime.SetBool("Swim", false);
@@ -92,6 +93,8 @@ public class Water : MonoBehaviour {
 		}
 		float inputX = Input.GetAxis("Horizontal");
 		float inputY = Input.GetAxis("Vertical");
+		float jump = Input.GetAxis("Jump");
+		float enter = Input.GetAxis("Enter");
 
 		this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 1) * floatingPower);
 
@@ -102,6 +105,14 @@ public class Water : MonoBehaviour {
 			}
 		} else if (inputY < 0) {
 			this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1 * ypower));
+		}
+
+		if (jump > 0) {
+			this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 0.5f * swimJump));
+		}
+
+		if (enter > 0) {
+			this.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -0.5f * swimJump));
 		}
 
 		if (inputX > 0) {

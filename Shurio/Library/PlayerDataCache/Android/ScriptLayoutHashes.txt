@@ -10,10 +10,12 @@ Assets/Stage1-4.unity
 Assets/Stage2-1.unity
 Assets/Stage2-2.unity
 Assets/Stage3-1.unity
+Assets/Stage5-1.unity
 Assets/End.unity
 Assets/Win.unity
 Assets/Shurio.unity
 SceneListEnd?
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BomHeiScript
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 01aa15e337e3a9c62f15153dfac6d589 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -136,7 +138,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 303da015e9d1de9fdb27bbc2ba279ebd Assembly-CSharp.dll:UnityStandardAssets.Utility.WaypointProgressTracker
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-82e143b3570f38657bb352c8dbacccf0 Assembly-CSharp.dll:.CameraScript
+343c0998a3c29a664dc5e8ba8914fcd9 Assembly-CSharp.dll:.CameraScript
 3396ff6cc30879372b7ea1be4a7e4516 Assembly-CSharp.dll:.CameraSwitch
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
@@ -148,6 +150,7 @@ a8b6c919b2049fcc280823488144371f Assembly-CSharp.dll:UnityStandardAssets.CrossPl
 3a0e00fe942082621120621a94d8ce08 Assembly-CSharp.dll:.scriptTexttest
 80a19fce27d1ce549eae8ecebb867cdf Assembly-CSharp.dll:.Water
 4f631fd718256a8c69483c396671a274 Assembly-CSharp.dll:UnityStandardAssets.Utility.PlatformSpecificContent
+32492f668562ba4614004896bfb6871e Assembly-CSharp.dll:.BoardScript
 0574135745ea880aa1c1be2f2057ab89 Assembly-CSharp.dll:UnityStandardAssets.Utility.ActivateTrigger
 4bd1cc3c85989d2213a9a8fd9d09e63f Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.InputAxisScrollbar
 fdd7177da17032ba94d98037cc97bb49 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.AxisTouchButton
@@ -165,6 +168,7 @@ f8bd7a92bf9f22d289759689ae7b1fd4 Assembly-CSharp.dll:UnityStandardAssets.Utility
 1a7cacfe8f65a9317452b93da1b332f2 Assembly-CSharp.dll:.KuriboInstantiate
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.TextMeshPro.dll:TMPro.TMP_SpriteAnimator
+793cad367f1a2876b1cae5c5ac5158a1 Assembly-CSharp.dll:.RedKingScript
 8590ed0a08c6ae822ba8f708faeed7cc Assembly-CSharp.dll:.MainCameraScript
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityStandardAssets.Utility.ObjectResetter
@@ -186,10 +190,12 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 e2522b7c179a85b5140bcf55d42cb223 Assembly-CSharp.dll:.WinStageScript
+afc5b93a7b192de2dcb3832fe35a5c7e Assembly-CSharp.dll:.KillerScript
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityStandardAssets._2D.Restarter
 9a40de0f5a84ec02044ccfb05875df71 Assembly-CSharp.dll:UnityStandardAssets.Utility.WaypointCircuit
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.RetryButtonScript
 510fefd6a544e16a3ffefa557ddcba39 Unity.TextMeshPro.dll:TMPro.PackageResourceImporterWindow
+1b75ef5112a559b839823309957eeb12 Assembly-CSharp.dll:.BomHeiInstantiate
 ec269c56b5b1bd69e4cc651fd0131133 Assembly-CSharp.dll:.ChestInstantiate
 aa82b3ce4c0c9b227036c0337315c5d3 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:UnityStandardAssets._2D.Platformer2DUserControl
@@ -217,14 +223,15 @@ c933b2cffdb9d1429a103e9d63c523ef Assembly-CSharp.dll:UnityStandardAssets.Utility
 03b9ef2ed536e8d6280069f2195174da Assembly-CSharp.dll:UnityStandardAssets.Utility.SimpleActivatorMenu
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
-c9d16380b3610f1637cb098cf4ea4dbf Assembly-CSharp.dll:.FirebirdScript
+70f7b4b5ec669a3efd193b1b294c0caf Assembly-CSharp.dll:.FirebirdScript
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-fba3c2fc633a574be55f03369b9e8657 Assembly-CSharp.dll:.Shurio
+187fb0b4f94649ecdfd800f0bfa4dec8 Assembly-CSharp.dll:.Shurio
 49dcb3939f87870ac10cf1f8fcdfb35e Assembly-CSharp.dll:UnityStandardAssets.Utility.FollowTarget
 74fdef42e5d1b91d250d09f9fc6f54da Assembly-CSharp.dll:UnityStandardAssets._2D.Camera2DFollow
 219ec6059796d8951d2adcd8505d0dc2 Assembly-CSharp.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 a8cd58c1680eb5251e5604e560cf89e9 Assembly-CSharp.dll:UnityStandardAssets.Utility.TimedObjectDestructor
 e823ffa31729abdb809756c88c8d8333 Assembly-CSharp.dll:.StartButton
+ff8a1674499dfcc002e05e2407648747 Assembly-CSharp.dll:.KillerInstantiate
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 5e5a1a8ae2d8f30521d5bdef2b158f08 Assembly-CSharp.dll:.RengaScript
 c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro

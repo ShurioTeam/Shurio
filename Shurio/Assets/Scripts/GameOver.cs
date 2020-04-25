@@ -28,6 +28,8 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         getFlag = 0;
+		GameObject board = GameObject.Find("BOARD");
+		board.SendMessage("SetClearFlagCount", flagCount);
     }
 
     // Update is called once per frame
@@ -69,9 +71,9 @@ public class GameOver : MonoBehaviour
 		if (collider.tag == "Flag") {
 			getFlag++;
 			score++;
-			GameObject camera = GameObject.Find("Main Camera");
-			camera.SendMessage("GetPoint", score);
-			var flag = GameObject.FindWithTag("Flag");
+			GameObject clearCondition = GameObject.Find("BOARD");
+			clearCondition.SendMessage("SetFlagNum", getFlag);
+			GameObject flag = GameObject.FindWithTag("Flag");
 			flag.GetComponent<AudioSource>().Play();
 		}
 
@@ -94,8 +96,11 @@ public class GameOver : MonoBehaviour
 
 		if (collider.tag == "Flag" && flagCount <= getFlag) {
 			GameObject keyBox = GameObject.Find("KeyBox");
-			keyBox.SendMessage("ShowKeyBox", true);
-			//SceneManager.LoadScene(nextStage, LoadSceneMode.Additive);
+			if (keyBox != null) {
+				keyBox.SendMessage("ShowKeyBox", true);
+			} else {
+				SceneManager.LoadScene(nextStage, LoadSceneMode.Single);
+			}
 		}
 
 		if (collider.tag != "Boss" && collider.tag != "Enemy" && collider.tag != "Player") {
