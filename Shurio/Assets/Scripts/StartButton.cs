@@ -50,10 +50,16 @@ public class StartButton : MonoBehaviour
 	void ShurioRotate(Collider2D collider) {
 		collider.gameObject.transform.position = new Vector2 (posiX, posiY);
 		if (collider.name == shurioName) {
-			GameObject.Find(aorioName).transform.position = new Vector2(posiX,posiY);
+			GameObject aorio = GameObject.Find(aorioName);
+			if (aorio != null) {
+				aorio.transform.position = new Vector2(posiX,posiY);
+			}
 		}
 		if (collider.name == aorioName) {
-			GameObject.Find(shurioName).transform.position = new Vector2(posiX,posiY);
+			GameObject shurio = GameObject.Find(shurioName);
+			if (shurio != null) {
+				shurio.transform.position = new Vector2(posiX,posiY);
+			}
 		}
 	}
 
