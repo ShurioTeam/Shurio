@@ -9,6 +9,8 @@ public class MainCameraScript : MonoBehaviour {
 	public string shurioName;
 	public bool inWater;
 	public bool inSky;
+	public float initX;
+	public float initY;
 	private GameObject shurio;
 	void Start () {
 		bool shurioFlag = false;
@@ -41,6 +43,8 @@ public class MainCameraScript : MonoBehaviour {
 				shurio = obj;
 				shurio.SendMessage("InWater", inWater);
 				shurio.SendMessage("InSky", inSky);
+				Vector3 initPosi = new Vector3(initX, initY, 0);
+				shurio.SendMessage("InitPosition", initPosi);
 			}
 		}
 	}

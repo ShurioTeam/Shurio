@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Water : MonoBehaviour {
+public class ShurioInWater : MonoBehaviour {
 	public float xpower;
 	public float ypower;
 	public float jumpPower;

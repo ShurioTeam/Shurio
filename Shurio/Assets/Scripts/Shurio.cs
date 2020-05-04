@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Shurio : MonoBehaviour
 {
+	public float initX = 0.0f;
+	public float initY = 0.0f;
 	public int jumpPower = 10;
 	public int power = 10;
 	public float throwPower = 1.0f;
@@ -61,6 +63,7 @@ public class Shurio : MonoBehaviour
     void Start()
     {
 		anime = face.GetComponentInChildren<Animator>();
+		face.transform.position = new Vector2(initX, initY);
 		GROUND_MASS = face.GetComponent<Rigidbody2D>().mass;
 		if (walk_divide == 0) {
 			walk_divide = 100.0f;
@@ -549,5 +552,9 @@ public class Shurio : MonoBehaviour
 		anime.SetBool("Rotate", rotateFlg);
 		//}
 		Debug.Log("fase rotate:" + rotateFlg);
+	}
+
+	public void InitPosition(Vector3 initPosi) {
+		face.transform.position = initPosi;
 	}
 }

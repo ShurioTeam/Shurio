@@ -9,12 +9,25 @@ public class CameraSwitch : MonoBehaviour {
 	private const int MAX_DEPTH = 3;
 	// Use this for initialization
 	void Start () {
-		
+		camera1.SetActive(true);
+		camera2.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		float action = Input.GetAxis("LT_Joy1");
+		Debug.Log("Camera Switch");
+		if (action > 0.0f) {
+			if (camera1.active) {
+				Debug.Log("Camera Switch2");
+				camera1.SetActive(false);
+				camera2.SetActive(true);
+			} else if (camera2.active) {
+				Debug.Log("Camera Switch1");
+				camera1.SetActive(true);
+				camera2.SetActive(false);
+			}
+		}
 	}
 
 	public void OnTriggerEnter2D(Collider2D collider) {
