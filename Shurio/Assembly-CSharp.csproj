@@ -105,6 +105,7 @@
      <Compile Include="Assets\Scripts\CameraSwitch.cs" />
      <Compile Include="Assets\Scripts\ChestInstantiate.cs" />
      <Compile Include="Assets\Scripts\ChestScript.cs" />
+     <Compile Include="Assets\Scripts\CloudScript.cs" />
      <Compile Include="Assets\Scripts\CrowScript.cs" />
      <Compile Include="Assets\Scripts\DosunScript.cs" />
      <Compile Include="Assets\Scripts\FirebirdScript.cs" />

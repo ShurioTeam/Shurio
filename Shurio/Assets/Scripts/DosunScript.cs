@@ -69,4 +69,15 @@ public class DosunScript : MonoBehaviour
             moveFlag = false;
         }
     }
+
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (this.gameObject.tag == "DosunV" && collision.gameObject.tag == "Player") {
+            collision.gameObject.transform.localScale -= new Vector3(0, 0.1f, 0);
+            collision.gameObject.SendMessage("CallAllItemsRemove", true);
+        }
+        if (this.gameObject.tag == "DosunH" && collision.gameObject.tag == "Player") {
+            collision.gameObject.transform.localScale -= new Vector3(0.1f, 0, 0);
+            collision.gameObject.SendMessage("CallAllItemsRemove", true);
+        }
+    }
 }

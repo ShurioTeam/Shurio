@@ -58,12 +58,14 @@ public class Shurio : MonoBehaviour
 	private bool hasKey = false;
 	private bool hasKeyBox = false;
 	private bool setGlam = false;
+	private Vector3 faceScale;
 
     // Start is called before the first frame update
     void Start()
     {
 		anime = face.GetComponentInChildren<Animator>();
 		face.transform.position = new Vector2(initX, initY);
+		faceScale = face.transform.localScale;
 		GROUND_MASS = face.GetComponent<Rigidbody2D>().mass;
 		if (walk_divide == 0) {
 			walk_divide = 100.0f;
@@ -82,7 +84,7 @@ public class Shurio : MonoBehaviour
 		Debug.Log("RB:" + Input.GetAxis("Fire2"));
 		Debug.Log("LB:" + Input.GetAxis("Fire4"));
 		Debug.Log("RT_Joy1:" + Input.GetAxis("RT_Joy1"));
-		Debug.Log("LT_Joy2:" + Input.GetAxis("LT_Joy1"));
+		Debug.Log("LT_Joy1:" + Input.GetAxis("LT_Joy1"));
 		if (!setGlam) {
 			if (chest002 != null && chest_002g == 0.0f) chest_002g = chest002.GetComponent<Rigidbody2D>().mass;
 			if (chest007 != null && chest_007g == 0.0f) chest_007g = chest007.GetComponent<Rigidbody2D>().mass;
@@ -293,6 +295,12 @@ public class Shurio : MonoBehaviour
 		}
 		if (jumping) {
 			jumping = false;
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D collision) {
+		if (collision.gameObject.tag == "Cloud") {
+			face.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, -40.0f, 0));
 		}
 	}
 
@@ -556,5 +564,24 @@ public class Shurio : MonoBehaviour
 
 	public void InitPosition(Vector3 initPosi) {
 		face.transform.position = initPosi;
+	}
+
+
+	public void CallAllItemsRemove(bool remove) {
+		if (remove) {
+			Invoke("AllItemsRemove", 3.0f);
+		}
+	}
+	public void AllItemsRemove() {
+		bomEnabled = false;
+		fireEnabled = false;
+		lightEnabled = false;
+		greenEnabled = false;
+		bool isfrog = anime.GetBool("Frog");
+		if (isfrog) {
+			jumpPower /= 2;
+			anime.SetBool("Frog",false);
+		}
+		face.transform.localScale = faceScale;
 	}
 }

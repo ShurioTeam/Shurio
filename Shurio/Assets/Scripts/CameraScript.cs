@@ -36,4 +36,17 @@ public class CameraScript : MonoBehaviour
     void GetPoint(int score) {
       Debug.Log("Get point Call!!!" + score);
     }
+
+    public void setStatus(bool[] status) {
+      if (status[0]) {
+        inWater = true;
+        waterFall = false;
+      } else if (status[1]) {
+        inWater = false;
+        waterFall = true;
+      } else if (status[2]) {
+        inWater = false;
+        waterFall = false;
+      }
+    }
 }
