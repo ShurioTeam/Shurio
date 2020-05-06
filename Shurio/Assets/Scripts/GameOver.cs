@@ -29,7 +29,7 @@ public class GameOver : MonoBehaviour
     {
         getFlag = 0;
 		GameObject board = GameObject.Find("BOARD");
-		board.SendMessage("SetClearFlagCount", flagCount);
+		//board.SendMessage("SetClearFlagCount", flagCount);
     }
 
     // Update is called once per frame

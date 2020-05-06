@@ -19,6 +19,11 @@ public class BomHeiScript : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider) {
         if (onFlag) {
+            if (collider.tag == "item_bom") {
+                collider.gameObject.SendMessage("InvokeSwitchOn", 0.0f);
+                Debug.Log("誘発爆破");
+            }
+
             Vector3 target_posi = collider.gameObject.transform.position;
             Vector3 posi = this.gameObject.transform.position;
             Rigidbody2D rigidbody = collider.gameObject.GetComponent<Rigidbody2D>();
@@ -31,8 +36,8 @@ public class BomHeiScript : MonoBehaviour
         }
     }
 
-    public void InvokeSwitchOn() {
-        Invoke("SwitchOn", 5.0f);
+    public void InvokeSwitchOn(float time) {
+        Invoke("SwitchOn", time);
     }
     void SwitchOn() {
         this.onFlag = true;

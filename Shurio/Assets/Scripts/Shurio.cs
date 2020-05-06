@@ -320,7 +320,7 @@ public class Shurio : MonoBehaviour
 				}
 			}
 		} else if (collider.tag == "item_bom") {
-			collider.SendMessage("InvokeSwitchOn");
+			collider.SendMessage("InvokeSwitchOn", 5.0f);
 		} else if (collider.tag == "item_frog") {
 			bool isfrog = anime.GetBool("Frog");
 			if (!isfrog) {
