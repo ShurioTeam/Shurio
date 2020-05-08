@@ -56,12 +56,14 @@ public class Aorio : MonoBehaviour
 	private bool hasKey = false;
 	private bool hasKeyBox = false;
 	private bool setGlam = false;
+	private Vector3 faceScale;
 
     // Start is called before the first frame update
     void Start()
     {
 		anime = face.GetComponentInChildren<Animator>();
 		GROUND_MASS = face.GetComponent<Rigidbody2D>().mass;
+		faceScale = face.transform.localScale;
 		if (walk_divide == 0) {
 			walk_divide = 100.0f;
 		}
@@ -556,5 +558,28 @@ public class Aorio : MonoBehaviour
 		anime.SetBool("Rotate", rotateFlg);
 		//}
 		Debug.Log("fase rotate:" + rotateFlg);
+	}
+
+	public void CallAllItemsRemove(bool remove) {
+		if (remove) {
+			Invoke("AllItemsRemove", 3.0f);
+		}
+	}
+
+	public void AllItemsRemove() {
+		bomEnabled = false;
+		fireEnabled = false;
+		lightEnabled = false;
+		greenEnabled = false;
+		bool isfrog = anime.GetBool("Frog");
+		if (isfrog) {
+			jumpPower /= 2;
+			anime.SetBool("Frog",false);
+		}
+		this.setDefaultSize();
+	}
+
+	public void setDefaultSize() {
+		face.transform.localScale = faceScale;
 	}
 }

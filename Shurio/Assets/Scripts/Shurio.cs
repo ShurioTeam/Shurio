@@ -300,7 +300,7 @@ public class Shurio : MonoBehaviour
 
 	void OnCollisionExit2D(Collision2D collision) {
 		if (collision.gameObject.tag == "Cloud") {
-			face.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, -40.0f, 0));
+//			face.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, -20.0f, 0));
 		}
 	}
 
@@ -582,6 +582,10 @@ public class Shurio : MonoBehaviour
 			jumpPower /= 2;
 			anime.SetBool("Frog",false);
 		}
+		this.setDefaultSize();
+	}
+
+	public void setDefaultSize() {
 		face.transform.localScale = faceScale;
 	}
 }

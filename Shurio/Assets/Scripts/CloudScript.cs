@@ -20,7 +20,12 @@ public class CloudScript : MonoBehaviour
     void Update()
     {
         if (Input.GetAxis("Start") > 0.0f) {
-            stayCloud = false;
+            if (stayCloud) {
+                stayCloud = false;
+                this.gameObject.GetComponent<BoxCollider2D>().isTrigger=true;
+            }
+        } else {
+            this.gameObject.GetComponent<BoxCollider2D>().isTrigger=false;
         }
 
         if (stayCloud) {
@@ -32,7 +37,7 @@ public class CloudScript : MonoBehaviour
             if (Input.GetAxis("Enter") > 0.0f) {
                 this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, -10.0f, 0));
             }
-            aorio.transform.position = this.gameObject.transform.position + new Vector3(0, 0.7f, 0);
+            aorio.transform.position = this.gameObject.transform.position + new Vector3(0, 1.0f, 0);
         }
     }
 
@@ -47,7 +52,7 @@ public class CloudScript : MonoBehaviour
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
             this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(x, floatPower, 0) * power);
-            collision.gameObject.transform.position = this.gameObject.transform.position + new Vector3(0, 0.7f, 0);
+            collision.gameObject.transform.position = this.gameObject.transform.position + new Vector3(0, 1.0f, 0);
 
             GameObject camera = GameObject.Find("Main Camera");
             camera.SendMessage("setStatus", new bool[]{true, false, false});
