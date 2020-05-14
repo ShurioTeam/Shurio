@@ -288,13 +288,20 @@ public class Shurio : MonoBehaviour
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D collider) {
-		if (collider.gameObject.name == "fire" || collider.gameObject.name == "greenLight" || collider.gameObject.name == "lighting") {
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.gameObject.name == "fire" || collision.gameObject.name == "greenLight" || collision.gameObject.name == "lighting") {
 			Debug.Log("Item is using");
 			return;
 		}
 		if (jumping) {
 			jumping = false;
+		}
+
+		if (collision.gameObject.tag == "BreakBlock") {
+			if (faceScale.x < face.transform.localScale.x 
+				&& faceScale.y < face.transform.localScale.y) {
+				collision.gameObject.SendMessage("BreakBlock", true);
+			}
 		}
 	}
 

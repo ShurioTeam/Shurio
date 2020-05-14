@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NextStageScript : MonoBehaviour
+public class WinStageScript : MonoBehaviour
 {
     public string nextStage;
 

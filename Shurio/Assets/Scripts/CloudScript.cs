@@ -37,7 +37,7 @@ public class CloudScript : MonoBehaviour
             if (Input.GetAxis("Enter") > 0.0f) {
                 this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(0, -10.0f, 0));
             }
-            aorio.transform.position = this.gameObject.transform.position + new Vector3(0, 1.0f, 0);
+            aorio.transform.position = this.gameObject.transform.position + new Vector3(0, 0.8f, 0);
         }
     }
 
@@ -51,8 +51,10 @@ public class CloudScript : MonoBehaviour
         if (stayCloud && collision.gameObject.name == aorioName) {
             float x = Input.GetAxis("Horizontal");
             float y = Input.GetAxis("Vertical");
-            this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(x, floatPower, 0) * power);
-            collision.gameObject.transform.position = this.gameObject.transform.position + new Vector3(0, 1.0f, 0);
+            this.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector3(x, y * floatPower, 0) * power);
+            this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            collision.gameObject.GetComponent<Rigidbody2D>().gravityScale= 0.0f;
+            collision.gameObject.transform.position = this.gameObject.transform.position + new Vector3(0, 0.8f, 0);
 
             GameObject camera = GameObject.Find("Main Camera");
             camera.SendMessage("setStatus", new bool[]{true, false, false});
@@ -61,6 +63,8 @@ public class CloudScript : MonoBehaviour
 
     public void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.name == aorioName) {
+            collision.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
+            this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         }
     }
 }
